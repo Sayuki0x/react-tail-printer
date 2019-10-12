@@ -1,0 +1,4 @@
+{
+  "websocketHost": "your host goes here",
+  "websocketPort": "8999"
+}
