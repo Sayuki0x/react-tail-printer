@@ -10,7 +10,3 @@
   display: flex;
   flex-direction: column-reverse;
 }
-
-.has-text-violet {
-  color: hsl(271, 100%, 71%);
-}

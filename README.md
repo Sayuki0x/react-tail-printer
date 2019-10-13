@@ -99,12 +99,5 @@ Sometimes you might have substrings you want to completely remove from the log o
 Sometimes you may not want to display specific lines at all in the log output. You can add any strings to an array at `src/Constants/linesToIgnore.json` and if the log output contains any of the provided strings, it will not be displayed to the user. In this example, i'm removing some ASCII art by removing any lines that contain these specific characters:
 
 ```json
-[
-  "█",
-  "═",
-  "_",
-  "|"
-]
+["█", "═", "_", "|"]
 ```
-
-
