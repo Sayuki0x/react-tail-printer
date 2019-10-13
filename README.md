@@ -1,4 +1,4 @@
-# react-log-printer
+# react-tail-printer
 
 A front-end for my websocket-tail websocket server, written in react.
 
