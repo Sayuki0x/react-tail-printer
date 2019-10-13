@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import Linkify from 'react-linkify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faPlus,
-  faMinus,
-  faTimes,
-  faCog
-} from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus, faCog } from '@fortawesome/free-solid-svg-icons';
 import config from '../Config/config.json';
 import substringsToRemove from '../Config/substringsToRemove.json';
 import userStyles from '../Config/styleConfig.json';
