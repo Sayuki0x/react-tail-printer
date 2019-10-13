@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
-import config from '../Constants/config.json';
-import substringsToRemove from '../Constants/substringsToRemove.json';
-import userColors from '../Constants/colorConfig.json';
-import linesToIgnore from '../Constants/linesToIgnore.json';
+import Linkify from 'react-linkify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faPlus,
+  faMinus,
+  faTimes,
+  faCog
+} from '@fortawesome/free-solid-svg-icons';
+import config from '../Config/config.json';
+import substringsToRemove from '../Config/substringsToRemove.json';
+import userStyles from '../Config/styleConfig.json';
+import linesToIgnore from '../Config/linesToIgnore.json';
 
-const colorConfig: { [key: string]: any } = userColors;
-const colorValues = Object.keys(colorConfig);
+const styleConfig: { [key: string]: any } = userStyles;
+const colorValues = Object.keys(styleConfig);
 const { websocketHost, websocketPort } = config;
 
 const client = new W3CWebSocket(
@@ -18,6 +26,8 @@ type Props = {};
 
 type State = {
   logHistory: string[];
+  fontSize: number;
+  settingsMenuExpanded: boolean;
 };
 
 class Terminal extends Component {
@@ -26,8 +36,15 @@ class Terminal extends Component {
   constructor(props: Props) {
     super(props);
     this.state = {
-      logHistory: []
+      logHistory: [],
+      fontSize: 6,
+      settingsMenuExpanded: false
     };
+
+    this.increaseFontSize = this.increaseFontSize.bind(this);
+    this.decreaseFontSize = this.decreaseFontSize.bind(this);
+
+    setTimeout(this.increaseFontSize, 5000);
   }
 
   componentWillMount() {
@@ -46,11 +63,69 @@ class Terminal extends Component {
     };
   }
 
+  increaseFontSize = () => {
+    const { fontSize } = this.state;
+    if (fontSize > 1) {
+      this.setState({
+        fontSize: fontSize - 1
+      });
+    }
+  };
+
+  decreaseFontSize = () => {
+    const { fontSize } = this.state;
+    if (fontSize < 7) {
+      this.setState({
+        fontSize: fontSize + 1
+      });
+    }
+  };
+
+  toggleSettingsMenu = () => {
+    const { settingsMenuExpanded } = this.state;
+    this.setState({
+      settingsMenuExpanded: !settingsMenuExpanded
+    });
+  };
+
   render() {
-    const { logHistory } = this.state;
+    const { logHistory, fontSize, settingsMenuExpanded } = this.state;
 
     return (
       <div className="terminal">
+        {!settingsMenuExpanded && (
+          <div className="settings has-text-right">
+            <span
+              className="button is-small is-black"
+              onClick={this.toggleSettingsMenu}
+            >
+              <FontAwesomeIcon icon={faCog} />
+            </span>
+          </div>
+        )}
+        {settingsMenuExpanded && (
+          <div className="notification settings swing-in-top-fwd box is-dark">
+            <span
+              className="delete has-text-danger"
+              onClick={this.toggleSettingsMenu}
+            ></span>
+            <strong>
+              <p className="help has-text-light">Font Size</p>
+            </strong>
+            <span
+              className="button is-small is-dark"
+              onClick={this.decreaseFontSize}
+            >
+              <FontAwesomeIcon icon={faMinus} />
+            </span>
+            <span
+              className="button is-small is-dark"
+              onClick={this.increaseFontSize}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+            </span>
+          </div>
+        )}
         {logHistory.map((line, index) => {
           // don't print empty messages
           if (line.trim() === '') {
@@ -61,7 +136,6 @@ class Terminal extends Component {
           let showLine: boolean = true;
           linesToIgnore.forEach((string: string) => {
             if (line.includes(string)) {
-              console.log('nope nope nope!');
               showLine = false;
             }
           });
@@ -69,13 +143,13 @@ class Terminal extends Component {
             return null;
           }
 
-          // let's determine the log color based on colorConfig.json
-          let logColor: string = '';
+          // let's determine the log styles based on styleConfig.json
+          let logStyles: string = '';
           colorValues.forEach((color: string) => {
-            const { strings } = colorConfig[color];
+            const { strings } = styleConfig[color];
             strings.forEach((string: string) => {
               if (line.includes(string)) {
-                logColor = colorConfig[color].class;
+                logStyles = styleConfig[color].class;
               }
             });
           });
@@ -88,9 +162,15 @@ class Terminal extends Component {
 
           // finally print the log message
           return (
-            <span key={index} className={`is-family-monospace ${logColor}`}>
-              {logText}
-            </span>
+            <Linkify key={index}>
+              <span
+                className={`is-family-monospace ${logStyles} is-size-${String(
+                  fontSize
+                )}`}
+              >
+                {logText}
+              </span>
+            </Linkify>
           );
         })}
       </div>

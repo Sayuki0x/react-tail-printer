@@ -16,13 +16,13 @@ A front-end for my websocket-tail websocket server, written in react.
 Clone the repository:
 
 ```shell
-git clone https://github.com/ExtraHash/react-log-printer
+git clone https://github.com/ExtraHash/react-tail-printer
 ```
 
 Change the directory into the repository you've cloned:
 
 ```shell
-cd react-log-printer
+cd react-tail-printer
 ```
 
 Install the dependencies
@@ -31,14 +31,13 @@ Install the dependencies
 yarn
 ```
 
-Copy the example config file and fill it out with your own websocket host and port (the ones from your websocket-tail server you have running)
+Fill out the config file with your own websocket host and port (the ones from your websocket-tail server you have running)
 
 ```shell
-cp ./src/Constants/config-example.json ./src/Constants/config.json
-nano ./src/Constants/config.json
+nano ./src/Config/config.json
 ```
 
-You don't have to edit it in nano, you can use whatever text editor you'd prefer.
+This command will open it to edit in nano, but you can use whatever text editor you'd prefer.
 
 Finally, start the application:
 
@@ -84,14 +83,7 @@ Example: if my log output contains "TurtleCoin", a css class will be applied to 
 Sometimes you might have substrings you want to completely remove from the log output. You can include an array of substrings at `src/Constants/substringsToRemove.json` and react-tail-printer will trim them out of the log. Here's an example:
 
 ```json
-[
-  "[protocol]",
-  "[Core]",
-  "[daemon]",
-  "[node_server]",
-  "[RocksDBWrapper]",
-  "http://chat.turtlecoin.lol"
-]
+["[protocol]", "[Core]", "[daemon]", "[node_server]", "[RocksDBWrapper]"]
 ```
 
 ### Ignoring lines
