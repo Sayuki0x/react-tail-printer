@@ -89,8 +89,7 @@ Sometimes you might have substrings you want to completely remove from the log o
   "[Core]",
   "[daemon]",
   "[node_server]",
-  "[RocksDBWrapper]",
-  "http://chat.turtlecoin.lol"
+  "[RocksDBWrapper]"
 ]
 ```
 
