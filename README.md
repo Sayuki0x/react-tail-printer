@@ -75,9 +75,9 @@ You can color the log output based on a JSON file of values you provide, which i
 }
 ```
 
-You can name the values anything you'd like. If the log has contains any of the strings in the `strings` array, it will apply the CSS class of whatever is in the `class`.
+You can name the values anything you'd like. If the log has contains any of the strings in the `value.strings` array, it will apply the CSS class of whatever is in the `value.class`.
 
-Example: if my log output contains "TurtleCoin", a css class will be applied to the line of "has-text-success has-text-weight-bold".
+Example: if my log output contains "TurtleCoin", a css class will be applied to the line of "has-text-success has-text-weight-bold". (From the `success` value)
 
 ### Removing substrings
 
