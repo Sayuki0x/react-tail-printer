@@ -38,8 +38,6 @@ class Terminal extends Component {
 
     this.increaseFontSize = this.increaseFontSize.bind(this);
     this.decreaseFontSize = this.decreaseFontSize.bind(this);
-
-    setTimeout(this.increaseFontSize, 5000);
   }
 
   componentWillMount() {
