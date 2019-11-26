@@ -9,7 +9,7 @@ A front-end for my websocket-tail websocket server, written in react.
 - nodejs v10.x
 - typescript (npm i -g typescript)
 - yarn package manager
-- websocket-tail server (<https://github.com/ExtraHash/websocket-tail)>
+- websocket-tail server (<https://github.com/LogicBite/websocket-tail)>
 
 ### Installation
 
